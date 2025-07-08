@@ -2,7 +2,7 @@ NAME = get_next_line
 
 # Compilor and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -D BUFFER_SIZE=n
+CFLAGS = -Wall -Wextra -Werror
 
 # Directories
 SRC_DIR = ./
@@ -29,11 +29,16 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 
 clean:
 	rm -rf $(OBJ_DIR)
+
+clean_test:
 	rm -rf $(SRC_DIR)/tmp
 
-test: re
+test:
 	mkdir -p $(SRC_DIR)/tmp
-	$(CC) $(CFLAGS) main.c $(SRCS) -o tmp/a.out
+	$(CC) $(CFLAGS) tests/main.c $(SRCS) -o tmp/a.out
+
+run_test:
+	./tmp/a.out
 
 fclean: clean
 	rm -f $(NAME)

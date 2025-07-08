@@ -49,7 +49,7 @@ char *ft_strjoin(char const *s1, char const *s2) {
 
 char *ft_strndup(char const *s, size_t n) {
   char *dup = malloc(n + 1);
-  if (!dup || !s)
+  if (!dup)
     return NULL;
   size_t i = 0;
   while (s[i] != '\0' && i < n) {
@@ -58,4 +58,16 @@ char *ft_strndup(char const *s, size_t n) {
   }
   dup[i] = '\0';
   return dup;
+}
+
+int contains_non_newline(char *s)
+{
+    int i = 0;
+    while (s && s[i] != '\0')
+    {
+        if (s[i] != '\n')
+            return 1;
+        i++;
+    }
+    return 0;
 }
