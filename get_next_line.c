@@ -6,11 +6,12 @@
 /*   By: omaly <omaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 12:21:09 by omaly             #+#    #+#             */
-/*   Updated: 2025/07/09 14:17:39 by omaly            ###   ########.fr       */
+/*   Updated: 2025/07/12 19:30:58 by omaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -33,8 +34,10 @@ char	*read_and_stash(int fd, char *stash)
 	while (0 < bytes_read && ft_strchr(stash, '\n') == NULL)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_read <= 0)
+		if (bytes_read < 0)
 			return (free(buffer), NULL);
+		if (bytes_read == 0)
+			return (free(buffer), stash);
 		buffer[bytes_read] = '\0';
 		tmp = ft_strjoin(stash, buffer);
 		free(stash);
@@ -74,6 +77,11 @@ char	*clean_stash(char *stash)
 		return (NULL);
 	}
 	newl++;
+	if (*newl == '\0')
+	{
+		free(stash);
+		return (NULL);
+	}
 	clean = ft_strndup(newl, ft_strlen(newl));
 	free(stash);
 	return (clean);
@@ -91,9 +99,11 @@ char	*get_next_line(int fd)
 	}
 	stash = read_and_stash(fd, stash);
 	if (stash == NULL)
+	{
 		return (NULL);
+	}
 	line = extract_line(stash);
-	if (!line)
+	if (line == NULL)
 	{
 		if (stash && stash[0] != '\0')
 			line = ft_strndup(stash, ft_strlen(stash));

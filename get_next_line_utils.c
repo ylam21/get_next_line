@@ -6,7 +6,7 @@
 /*   By: omaly <omaly@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 12:20:57 by omaly             #+#    #+#             */
-/*   Updated: 2025/07/09 14:15:44 by omaly            ###   ########.fr       */
+/*   Updated: 2025/07/12 19:33:17 by omaly            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,27 +46,28 @@ char	*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t	s1_len;
 	size_t	s2_len;
-	char	*joined;
-	size_t	i;
-	size_t	j;
+	char	*join;
+	size_t	pos;
 
-	if (!s2)
-		return (NULL);
-	if (!s1)
-		s1 = "";
 	s1_len = ft_strlen(s1);
 	s2_len = ft_strlen(s2);
-	joined = malloc(s1_len + s2_len + 1);
-	if (!joined)
+	join = (char *)malloc(sizeof(char) * (s1_len + s2_len + 1));
+	if (!join)
 		return (NULL);
-	i = 0;
-	j = 0;
-	while (s1[i++] != '\0')
-		joined[i] = s1[i];
-	while (s2[j++] != '\0')
-		joined[i + j] = s2[j];
-	joined[i + j] = '\0';
-	return (joined);
+	pos = 0;
+	while (pos < s1_len)
+	{
+		join[pos] = s1[pos];
+		pos++;
+	}
+	pos = 0;
+	while (pos < s2_len)
+	{
+		join[s1_len + pos] = s2[pos];
+		pos++;
+	}
+	join[s1_len + pos] = '\0';
+	return (join);
 }
 
 char	*ft_strndup(char const *s, size_t n)
