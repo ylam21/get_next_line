@@ -72,16 +72,10 @@ char	*clean_stash(char *stash)
 		return (NULL);
 	newl = ft_strchr(stash, '\n');
 	if (!newl)
-	{
-		free(stash);
-		return (NULL);
-	}
+		return (free(stash), NULL);
 	newl++;
 	if (*newl == '\0')
-	{
-		free(stash);
-		return (NULL);
-	}
+		return (free(stash), NULL);
 	clean = ft_strndup(newl, ft_strlen(newl));
 	free(stash);
 	return (clean);
@@ -94,14 +88,10 @@ char	*get_next_line(int fd)
 	char		tmp;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &tmp, 0) < 0)
-	{
 		return (NULL);
-	}
 	stash = read_and_stash(fd, stash);
 	if (stash == NULL)
-	{
 		return (NULL);
-	}
 	line = extract_line(stash);
 	if (line == NULL)
 	{
