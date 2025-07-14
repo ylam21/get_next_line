@@ -87,7 +87,7 @@ char	*get_next_line(int fd)
 	char		*line;
 	char		tmp;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &tmp, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	stash = read_and_stash(fd, stash);
 	if (stash == NULL)
