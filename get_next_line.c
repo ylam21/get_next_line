@@ -29,7 +29,7 @@ char	*read_and_stash(int fd, char *stash)
 
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
-		return (NULL);
+		return (free(stash), NULL);
 	bytes_read = 1;
 	while (0 < bytes_read && ft_strchr(stash, '\n') == NULL)
 	{
