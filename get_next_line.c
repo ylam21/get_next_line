@@ -35,7 +35,7 @@ char	*read_and_stash(int fd, char *stash)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read < 0)
-			return (free(buffer), NULL);
+			return (free(buffer), free(stash), NULL);
 		if (bytes_read == 0)
 			return (free(buffer), stash);
 		buffer[bytes_read] = '\0';
@@ -85,7 +85,6 @@ char	*get_next_line(int fd)
 {
 	static char	*stash = NULL;
 	char		*line;
-	char		tmp;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
